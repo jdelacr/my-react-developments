@@ -1,5 +1,5 @@
 import React from "react";
-import Menu from "../components/Menu";
+import Menu from "../components/Navigation";
 import Footer from "../components/Footer";
 import { Container } from "semantic-ui-react";
 

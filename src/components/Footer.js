@@ -11,11 +11,12 @@ export class Footer extends Component {
             <List.Item as={Link} to="/">
               Home
             </List.Item>
-            <List.Item as={Link} to="/About">
+            <List.Item as={Link} to="/about">
               About
             </List.Item>
-            <List.Item as="a">Link</List.Item>
-            <List.Item as="a">Link</List.Item>
+            <List.Item as={Link} to="/all-apps">
+              Applications
+            </List.Item>
           </List>
         </Container>
       </Segment>
