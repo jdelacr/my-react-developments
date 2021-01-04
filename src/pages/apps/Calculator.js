@@ -24,22 +24,29 @@ export class Calculator extends Component {
 
   displayValue = (event) => {
     const newVal = this.state.newValue.concat(event.target.value);
-    this.setState({ newValue: newVal });
+    this.setState({ newValue: `${newVal}` });
     this.setState({ value: `${newVal}` });
   };
 
+  calculate = (num) => {
+    return Function(`'use strict'; return(${num})`)();
+  };
+
   addFunction = (event) => {
-    let currentVal = this.state.value;
+    let currentVal = "";
 
     //console.log(event.target.value);
     if (event.target.value === "=") {
-      console.log("yes");
+      this.setState({
+        value: `${this.calculate(`${this.state.newValue}`)}`,
+        newValue: `${this.calculate(`${this.state.newValue}`)}`,
+      });
     } else {
-      console.log("current val:" + currentVal);
-      const evalVal = this.state.newValue.concat(event.target.value);
-      console.log(evalVal);
-      this.setState({ newValue: evalVal });
+      currentVal = this.state.newValue.concat(event.target.value);
+      this.setState({ newValue: `${currentVal}` });
     }
+
+    console.log(this.state.newValue);
   };
 
   render() {
