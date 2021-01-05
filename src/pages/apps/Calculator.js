@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../styles/apps/calculator.scss";
+import { Container, Header, Segment } from "semantic-ui-react";
 
 export class Calculator extends Component {
   constructor(props) {
@@ -35,7 +36,12 @@ export class Calculator extends Component {
   addFunction = (event) => {
     let currentVal = "";
 
-    //console.log(event.target.value);
+    //Append decimal in the display
+    if (event.target.value === ".") {
+      const decimalVal = this.state.value.concat(event.target.value);
+      this.setState({ value: `${decimalVal}` });
+    }
+
     if (event.target.value === "=") {
       this.setState({
         value: `${this.calculate(`${this.state.newValue}`)}`,
@@ -43,7 +49,7 @@ export class Calculator extends Component {
       });
     } else {
       currentVal = this.state.newValue.concat(event.target.value);
-      this.setState({ newValue: `${currentVal}` });
+      this.setState({ value: `${currentVal}`, newValue: `${currentVal}` });
     }
 
     console.log(this.state.newValue);
@@ -51,32 +57,39 @@ export class Calculator extends Component {
 
   render() {
     return (
-      <div className="calculator">
-        <Display result={this.state.value} />
-        {this.state.numbers.map((num) => (
-          <div key={num} className={`num-${num}`}>
-            <button
-              value={num}
-              className={`num-${num}`}
-              onClick={this.displayValue}
-            >
-              {num}
-            </button>
-          </div>
-        ))}
+      <>
+        <Segment textAlign="center" vertical>
+          <Container>
+            <Header as="h1" content="React Calculator" />
+          </Container>
+        </Segment>
+        <div className="calculator">
+          <Display result={this.state.value} />
+          {this.state.numbers.map((num) => (
+            <div key={num} className={`num-${num}`}>
+              <button
+                value={num}
+                className={`num-${num}`}
+                onClick={this.displayValue}
+              >
+                {num}
+              </button>
+            </div>
+          ))}
 
-        {this.state.functions.map((functions) => (
-          <div key={functions.func} className={`func-${functions.func}`}>
-            <button
-              value={functions.symbol}
-              key={functions.func}
-              onClick={this.addFunction}
-            >
-              {functions.symbol}
-            </button>
-          </div>
-        ))}
-      </div>
+          {this.state.functions.map((functions) => (
+            <div key={functions.func} className={`func-${functions.func}`}>
+              <button
+                value={functions.symbol}
+                key={functions.func}
+                onClick={this.addFunction}
+              >
+                {functions.symbol}
+              </button>
+            </div>
+          ))}
+        </div>
+      </>
     );
   }
 }
