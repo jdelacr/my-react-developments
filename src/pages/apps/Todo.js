@@ -6,12 +6,20 @@ export class Todo extends Component {
     super(props);
 
     this.state = {
+      newTodo: "",
       todo: [{ message: "Todo 1" }, { message: "Todo 2" }],
     };
   }
 
+  handleInput = (event) => {
+    this.setState({ newTodo: `${event.target.value}` });
+  };
+
   addTodo = () => {
-    console.log("hello");
+    let appendTodo = [{ message: `${this.state.newTodo}` }];
+    let newList = this.state.todo.concat(appendTodo);
+    this.setState({ todo: newList });
+    console.log(newList);
   };
 
   render() {
@@ -29,6 +37,7 @@ export class Todo extends Component {
               content: "Add",
               onClick: () => this.addTodo(),
             }}
+            onChange={this.handleInput}
           />
           <List>
             {this.state.todo.map((todo, index) => (
