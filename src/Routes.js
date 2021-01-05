@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Apps from "./pages/Apps";
 import Calculator from "./pages/apps/Calculator";
+import Todo from "./pages/apps/Todo";
 
 export class Routes extends Component {
   render() {
@@ -15,6 +16,7 @@ export class Routes extends Component {
           <Route exact path="/about" component={About} />
           <Route exact path="/all-apps" component={Apps} />
           <Route exact path="/pages/Calculator" component={Calculator} />
+          <Route exact path="/pages/Todo" component={Todo} />
         </Switch>
       </Layout>
     );
