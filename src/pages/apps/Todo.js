@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Container, Header, Segment, Input, List } from "semantic-ui-react";
+import {
+  Container,
+  Header,
+  Segment,
+  Input,
+  List,
+  Icon,
+  Divider,
+  Button,
+} from "semantic-ui-react";
 
 export class Todo extends Component {
   constructor(props) {
@@ -22,6 +31,16 @@ export class Todo extends Component {
     console.log(newList);
   };
 
+  deleteTodo = (event) => {
+    let updatedList = this.state.todo.filter((item, index) => {
+      return index !== parseInt(event.target.value);
+    });
+
+    this.setState({ todo: updatedList });
+  };
+
+  editTodo = () => {};
+
   render() {
     return (
       <>
@@ -43,6 +62,13 @@ export class Todo extends Component {
             {this.state.todo.map((todo, index) => (
               <div key={index} role="listitem" className="item">
                 {todo.message}
+                <Button onClick={this.editTodo} value={index}>
+                  <Icon name="edit" />
+                </Button>
+                <Button onClick={this.deleteTodo} value={index}>
+                  <Icon name="trash" />
+                </Button>
+                <Divider />
               </div>
             ))}
           </List>
