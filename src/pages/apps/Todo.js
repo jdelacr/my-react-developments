@@ -9,6 +9,7 @@ import {
   Divider,
   Button,
 } from "semantic-ui-react";
+import "../../styles/apps/todo.scss";
 
 export class Todo extends Component {
   constructor(props) {
@@ -86,43 +87,63 @@ export class Todo extends Component {
             <Header as="h1" content="Grocery Todo List" />
           </Container>
         </Segment>
-        <Segment vertical>
-          <Input
-            placeholder="Add todo list...."
-            action={{
-              content: "Add",
-              onClick: () => this.addTodo(),
-            }}
-            onChange={this.handleInput}
-          />
-          <List>
-            {this.state.todo.map((todo, index) => (
-              <div key={index} role="listitem" className="item">
-                {todo.editText ? (
-                  <Input
-                    transparent
-                    placeholder={todo.message}
-                    action={{
-                      content: "Update",
-                      onClick: () => this.updateTodo(index),
-                    }}
-                    onChange={this.handleChange}
-                  />
-                ) : (
-                  todo.message
-                )}
-
-                <Button onClick={this.editTodo} value={index}>
-                  <Icon name="edit" />
-                </Button>
-                <Button onClick={this.deleteTodo} value={index}>
-                  <Icon name="trash" />
-                </Button>
-                <Divider />
-              </div>
-            ))}
-          </List>
+        <Segment basic textAlign="center">
+          <Segment.Inline>
+            <div class="ui action input">
+              <input
+                type="text"
+                placeholder="Add todo list...."
+                onChange={this.handleInput}
+              />
+              <button class="ui button" onClick={this.addTodo}>
+                Add
+              </button>
+            </div>
+          </Segment.Inline>
         </Segment>
+        {this.state.todo.map((todo, index) => (
+          <div>
+            <div key={index} className="ui stackable two column grid">
+              <div className="ten wide column">
+                {todo.editText ? (
+                  <div className="ui segment basic">
+                    <Input
+                      transparent
+                      placeholder={todo.message}
+                      action={{
+                        content: "Update",
+                        onClick: () => this.updateTodo(index),
+                      }}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                ) : (
+                  <div className="ui segment basic">{todo.message}</div>
+                )}
+              </div>
+
+              <div className="six wide column">
+                <div className="ui segment basic">
+                  <Button
+                    onClick={this.editTodo}
+                    value={index}
+                    className="content"
+                  >
+                    <Icon name="edit" />
+                  </Button>
+                  <Button
+                    onClick={this.deleteTodo}
+                    value={index}
+                    className="content"
+                  >
+                    <Icon name="trash" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <Divider />
+          </div>
+        ))}
       </>
     );
   }
