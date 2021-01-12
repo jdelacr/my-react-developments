@@ -82,68 +82,70 @@ export class Todo extends Component {
   render() {
     return (
       <>
-        <Segment textAlign="center" vertical>
-          <Container>
-            <Header as="h1" content="Grocery Todo List" />
-          </Container>
-        </Segment>
-        <Segment basic textAlign="center">
-          <Segment.Inline>
-            <div class="ui action input">
-              <input
-                type="text"
-                placeholder="Add todo list...."
-                onChange={this.handleInput}
-              />
-              <button class="ui button" onClick={this.addTodo}>
-                Add
-              </button>
-            </div>
-          </Segment.Inline>
-        </Segment>
-        {this.state.todo.map((todo, index) => (
-          <div>
-            <div key={index} className="ui stackable two column grid">
-              <div className="ten wide column">
-                {todo.editText ? (
-                  <div className="ui segment basic">
-                    <Input
-                      transparent
-                      placeholder={todo.message}
-                      action={{
-                        content: "Update",
-                        onClick: () => this.updateTodo(index),
-                      }}
-                      onChange={this.handleChange}
-                    />
-                  </div>
-                ) : (
-                  <div className="ui segment basic">{todo.message}</div>
-                )}
+        <Container className="todo">
+          <Segment textAlign="center" vertical>
+            <Container>
+              <Header as="h1" content="Grocery Todo List" />
+            </Container>
+          </Segment>
+          <Segment basic textAlign="center">
+            <Segment.Inline>
+              <div class="ui action input">
+                <input
+                  type="text"
+                  placeholder="Add todo list...."
+                  onChange={this.handleInput}
+                />
+                <button class="ui button" onClick={this.addTodo}>
+                  Add
+                </button>
               </div>
+            </Segment.Inline>
+          </Segment>
+          {this.state.todo.map((todo, index) => (
+            <div>
+              <div key={index} className="ui stackable two column grid">
+                <div className="ten wide column">
+                  {todo.editText ? (
+                    <div className="ui segment basic">
+                      <Input
+                        transparent
+                        placeholder={todo.message}
+                        action={{
+                          content: "Update",
+                          onClick: () => this.updateTodo(index),
+                        }}
+                        onChange={this.handleChange}
+                      />
+                    </div>
+                  ) : (
+                    <div className="ui segment basic">{todo.message}</div>
+                  )}
+                </div>
 
-              <div className="six wide column">
-                <div className="ui segment basic">
-                  <Button
-                    onClick={this.editTodo}
-                    value={index}
-                    className="content"
-                  >
-                    <Icon name="edit" />
-                  </Button>
-                  <Button
-                    onClick={this.deleteTodo}
-                    value={index}
-                    className="content"
-                  >
-                    <Icon name="trash" />
-                  </Button>
+                <div className="six wide column">
+                  <div className="ui segment basic">
+                    <Button
+                      onClick={this.editTodo}
+                      value={index}
+                      className="content"
+                    >
+                      <Icon name="edit" />
+                    </Button>
+                    <Button
+                      onClick={this.deleteTodo}
+                      value={index}
+                      className="content"
+                    >
+                      <Icon name="trash" />
+                    </Button>
+                  </div>
                 </div>
               </div>
+              <Divider />
             </div>
-            <Divider />
-          </div>
-        ))}
+          ))}
+        </Container>
       </>
     );
   }
