@@ -7,11 +7,7 @@ function Layout({ children }) {
   return (
     <div>
       <Menu />
-      <Container
-        style={{ marginTop: "7em", marginBottom: "2em", minHeight: "500px" }}
-      >
-        {children}
-      </Container>
+      {children}
       <Footer />
     </div>
   );
