@@ -4,4 +4,26 @@ opacity: 1;
 background-image:  radial-gradient(#61dbfb 2px, transparent 2px), radial-gradient(#61dbfb 2px, #ffffff 2px);
 background-size: 80px 80px;
 background-position: 0 0,40px 40px;
+
+    &--hero {
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.7), 
+            rgba(0, 0, 0, 0.7)
+          ), url("./assets/home-bg.jpg") !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+        height: 700px !important;
+    }
+
+    &--header {
+        margin-top: 3em !important;
+        font-size: 4em !important;
+    }
+}
+
+.about,
+.all-apps {
+    margin-top: 7em;
+    margin-bottom: 2em;
+    min-height: 500px;
 }
