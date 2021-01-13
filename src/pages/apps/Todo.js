@@ -7,6 +7,7 @@ import {
   Icon,
   Divider,
   Button,
+  Transition,
 } from "semantic-ui-react";
 import "../../styles/apps/todo.scss";
 
@@ -101,49 +102,51 @@ export class Todo extends Component {
               </div>
             </Segment.Inline>
           </Segment>
-          {this.state.todo.map((todo, index) => (
-            <div>
-              <div key={index} className="ui stackable two column grid">
-                <div className="ten wide column">
-                  {todo.editText ? (
-                    <div className="ui segment basic">
-                      <Input
-                        transparent
-                        placeholder={todo.message}
-                        action={{
-                          content: "Update",
-                          onClick: () => this.updateTodo(index),
-                        }}
-                        onChange={this.handleChange}
-                      />
-                    </div>
-                  ) : (
-                    <div className="ui segment basic">{todo.message}</div>
-                  )}
-                </div>
+          <Transition.Group duration={500} animation="browse">
+            {this.state.todo.map((todo, index) => (
+              <div>
+                <div key={index} className="ui stackable two column grid">
+                  <div className="ten wide column">
+                    {todo.editText ? (
+                      <div className="ui segment basic">
+                        <Input
+                          transparent
+                          placeholder={todo.message}
+                          action={{
+                            content: "Update",
+                            onClick: () => this.updateTodo(index),
+                          }}
+                          onChange={this.handleChange}
+                        />
+                      </div>
+                    ) : (
+                      <div className="ui segment basic">{todo.message}</div>
+                    )}
+                  </div>
 
-                <div className="six wide column">
-                  <div className="ui segment basic">
-                    <Button
-                      onClick={this.editTodo}
-                      value={index}
-                      className="content"
-                    >
-                      <Icon name="edit" />
-                    </Button>
-                    <Button
-                      onClick={this.deleteTodo}
-                      value={index}
-                      className="content"
-                    >
-                      <Icon name="trash" />
-                    </Button>
+                  <div className="six wide column">
+                    <div className="ui segment basic">
+                      <Button
+                        onClick={this.editTodo}
+                        value={index}
+                        className="content"
+                      >
+                        <Icon name="edit" />
+                      </Button>
+                      <Button
+                        onClick={this.deleteTodo}
+                        value={index}
+                        className="content"
+                      >
+                        <Icon name="trash" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
+                <Divider />
               </div>
-              <Divider />
-            </div>
-          ))}
+            ))}
+          </Transition.Group>
         </Container>
       </>
     );
