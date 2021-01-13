@@ -4,7 +4,6 @@ import {
   Header,
   Segment,
   Input,
-  List,
   Icon,
   Divider,
   Button,
