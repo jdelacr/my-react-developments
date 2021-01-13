@@ -12,7 +12,13 @@ export class Apps extends Component {
             as={Link}
             to="/pages/Calculator"
             header="Calculator"
-            description="A calculator that uses React.js as the framework to create the functions"
+            description="A calculator that uses React.js as the framework to create the functions."
+          />
+          <Card
+            as={Link}
+            to="/pages/Todo"
+            header="Todo"
+            description="A todo application that features adding, editing, and deleting a task."
           />
         </Container>
       </div>
