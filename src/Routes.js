@@ -6,6 +6,7 @@ import About from "./pages/About";
 import Apps from "./pages/Apps";
 import Calculator from "./pages/apps/Calculator";
 import Todo from "./pages/apps/Todo";
+import BitcoinClicker from "./pages/apps/BitcoinClicker";
 
 export class Routes extends Component {
   render() {
@@ -17,6 +18,11 @@ export class Routes extends Component {
           <Route exact path="/all-apps" component={Apps} />
           <Route exact path="/pages/Calculator" component={Calculator} />
           <Route exact path="/pages/Todo" component={Todo} />
+          <Route
+            exact
+            path="/pages/BitcoinClicker"
+            component={BitcoinClicker}
+          />
         </Switch>
       </Layout>
     );
