@@ -18,13 +18,18 @@ export class BitcoinClicker extends Component {
     this.state = {
       score: 0,
       feed: [],
-      perks: [],
-      shop: [],
+      perks: [
+        {
+          multiplier: 1,
+          numGraphicCards: 0,
+          extraBitcoin: 0,
+        },
+      ],
       costs: [
         {
-          multiplier: 0,
-          graphicCard: 0,
-          overclock: 0,
+          multiplierCost: 20,
+          graphicCardCost: 50,
+          overclockCost: 100,
         },
       ],
     };
@@ -33,17 +38,36 @@ export class BitcoinClicker extends Component {
   buyMultiplier = (event) => {
     if (this.state.score < 20) {
       return console.log("you do not have enough money");
+    } else {
+      let sub = this.state.score - 20;
+      let newMultiplier = this.state.perks[0].multiplier + 0.1;
+
+      let updatedPerks = [
+        {
+          multiplier: newMultiplier,
+          numGraphicCards: this.state.perks[0].numGraphicCards,
+          extraBitcoin: this.state.perks[0].extraBitcoin,
+        },
+      ];
+
+      this.setState({ score: sub, perks: updatedPerks });
     }
 
     return console.log("hello");
   };
 
   addScore = (event) => {
-    this.state.score += 1;
-    this.setState({ score: this.state.score });
+    let mul = this.state.perks[0].multiplier;
+    let extraBit = this.state.perks[0].extraBitcoin;
+
+    let counter = mul * 1 + this.state.score;
+    this.setState({ score: counter });
   };
 
   render() {
+    let activePerks = this.state.perks[0];
+    let costs = this.state.costs[0];
+
     return (
       <div className="bitcoin">
         <Segment basic vertical>
@@ -67,7 +91,9 @@ export class BitcoinClicker extends Component {
             <List divided vertical="center">
               <List.Item>
                 <List.Content floated="right">
-                  <Button onClick={this.buyMultiplier}>Buy: $20</Button>
+                  <Button onClick={this.buyMultiplier}>
+                    Buy: ${costs.multiplierCost}
+                  </Button>
                 </List.Content>
                 <List.Content>
                   Multiplier
@@ -78,7 +104,7 @@ export class BitcoinClicker extends Component {
               </List.Item>
               <List.Item>
                 <List.Content floated="right">
-                  <Button>Buy: $100</Button>
+                  <Button>Buy: ${costs.graphicCardCost}</Button>
                 </List.Content>
                 <List.Content>Graphic Card</List.Content>
                 <List.Description>
@@ -87,7 +113,7 @@ export class BitcoinClicker extends Component {
               </List.Item>
               <List.Item>
                 <List.Content floated="right">
-                  <Button>Configure: $300</Button>
+                  <Button>Configure: ${costs.overclockCost}</Button>
                 </List.Content>
                 <List.Content>Overclock</List.Content>
                 <List.Description>
@@ -102,9 +128,15 @@ export class BitcoinClicker extends Component {
             <Feed>
               <Feed.Event>
                 <Feed.Content>
-                  <Feed.Summary>Multiplier: 1x</Feed.Summary>
-                  <Feed.Summary>Number of Graphic Cards: 0</Feed.Summary>
-                  <Feed.Summary>Extra Bitcoin: 0</Feed.Summary>
+                  <Feed.Summary>
+                    Multiplier: {activePerks.multiplier}x
+                  </Feed.Summary>
+                  <Feed.Summary>
+                    Number of Graphic Cards: {activePerks.numGraphicCards}
+                  </Feed.Summary>
+                  <Feed.Summary>
+                    Extra Bitcoin: {activePerks.extraBitcoin}
+                  </Feed.Summary>
                 </Feed.Content>
               </Feed.Event>
             </Feed>
