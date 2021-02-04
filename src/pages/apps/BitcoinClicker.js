@@ -11,12 +11,15 @@ import {
   Segment,
 } from "semantic-ui-react";
 
+let clickCounter = 0;
+
 export class BitcoinClicker extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       score: 0,
+      numberOfClicks: 20,
       feed: [],
       perks: [
         {
@@ -52,8 +55,28 @@ export class BitcoinClicker extends Component {
 
       this.setState({ score: sub, perks: updatedPerks });
     }
+  };
 
-    return console.log("hello");
+  buyGraphicCard = (event) => {
+    if (this.state.score < 50) {
+      console.log("you do not have enough Bitcoin");
+    } else {
+      let extraBitcoin = this.state.perks[0].extraBitcoin + 10;
+      let addGPU = this.state.perks[0].numGraphicCards + 1;
+      let sub = this.state.score - 50;
+
+      let updatedPerks = [
+        {
+          multiplier: this.state.perks[0].multiplier,
+          numGraphicCards: addGPU,
+          extraBitcoin: extraBitcoin,
+        },
+      ];
+
+      clickCounter = 0;
+
+      this.setState({ score: sub, perks: updatedPerks });
+    }
   };
 
   addScore = (event) => {
@@ -62,6 +85,15 @@ export class BitcoinClicker extends Component {
 
     let counter = mul * 1 + this.state.score;
     this.setState({ score: counter });
+
+    clickCounter += 1;
+
+    if (clickCounter % this.state.numberOfClicks === 0) {
+      let bonus = this.state.score + extraBit;
+
+      this.setState({ score: bonus });
+      console.log("bonus has been added");
+    }
   };
 
   render() {
@@ -104,11 +136,14 @@ export class BitcoinClicker extends Component {
               </List.Item>
               <List.Item>
                 <List.Content floated="right">
-                  <Button>Buy: ${costs.graphicCardCost}</Button>
+                  <Button onClick={this.buyGraphicCard}>
+                    Buy: ${costs.graphicCardCost}
+                  </Button>
                 </List.Content>
                 <List.Content>Graphic Card</List.Content>
                 <List.Description>
-                  Receive extra Bitcoin per 20 clicks
+                  Receive extra 10 Bitcoin per {this.state.numberOfClicks}{" "}
+                  clicks
                 </List.Description>
               </List.Item>
               <List.Item>
