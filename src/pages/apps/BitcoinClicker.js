@@ -18,7 +18,7 @@ export class BitcoinClicker extends Component {
     super(props);
 
     this.state = {
-      score: 0,
+      score: 150,
       numberOfClicks: 20,
       feed: [],
       perks: [
@@ -76,6 +76,25 @@ export class BitcoinClicker extends Component {
       clickCounter = 0;
 
       this.setState({ score: sub, perks: updatedPerks });
+    }
+  };
+
+  buyOverclock = (event) => {
+    if (this.state.score < 100) {
+      console.log("not enough bitcoin");
+    } else {
+      let newScore = this.state.score - 100;
+      let newNumOfClicks = this.state.numberOfClicks - 1;
+
+      this.setState({ score: newScore, numberOfClicks: newNumOfClicks });
+    }
+  };
+
+  enableOCButton = () => {
+    if (this.state.perks[0].numGraphicCards === 0) {
+      return true;
+    } else {
+      return false;
     }
   };
 
@@ -148,7 +167,12 @@ export class BitcoinClicker extends Component {
               </List.Item>
               <List.Item>
                 <List.Content floated="right">
-                  <Button>Configure: ${costs.overclockCost}</Button>
+                  <Button
+                    onClick={this.buyOverclock}
+                    disabled={this.enableOCButton()}
+                  >
+                    Configure: ${costs.overclockCost}
+                  </Button>
                 </List.Content>
                 <List.Content>Overclock</List.Content>
                 <List.Description>
