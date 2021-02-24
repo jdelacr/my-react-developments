@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   Feed,
+  FeedContent,
   Header,
   Image,
   List,
@@ -39,11 +40,20 @@ export class BitcoinClicker extends Component {
   }
 
   buyMultiplier = (event) => {
+    let updateFeed = this.state.feed;
+
     if (this.state.score < 20) {
-      return console.log("you do not have enough money");
+      updateFeed.push("you do not have enough Bitcoin");
+      this.setState({ feed: updateFeed });
     } else {
       let sub = this.state.score - 20;
       let newMultiplier = this.state.perks[0].multiplier + 0.1;
+
+      updateFeed.push(
+        `You bought a multiplier, your multiplier is now ${newMultiplier.toFixed(
+          2
+        )}`
+      );
 
       let updatedPerks = [
         {
@@ -53,17 +63,24 @@ export class BitcoinClicker extends Component {
         },
       ];
 
-      this.setState({ score: sub, perks: updatedPerks });
+      this.setState({ score: sub, feed: updateFeed, perks: updatedPerks });
     }
   };
 
   buyGraphicCard = (event) => {
+    let updateFeed = this.state.feed;
+
     if (this.state.score < 50) {
-      console.log("you do not have enough Bitcoin");
+      updateFeed.push("you do not have enough Bitcoin");
+      this.setState({ feed: updateFeed });
     } else {
       let extraBitcoin = this.state.perks[0].extraBitcoin + 10;
       let addGPU = this.state.perks[0].numGraphicCards + 1;
       let sub = this.state.score - 50;
+
+      updateFeed.push(
+        `You bought a a Graphic Card, you will now receive additional Bitcoin per ${this.state.numberOfClicks}`
+      );
 
       let updatedPerks = [
         {
@@ -75,18 +92,29 @@ export class BitcoinClicker extends Component {
 
       clickCounter = 0;
 
-      this.setState({ score: sub, perks: updatedPerks });
+      this.setState({ score: sub, feed: updateFeed, perks: updatedPerks });
     }
   };
 
   buyOverclock = (event) => {
+    let updateFeed = this.state.feed;
+
     if (this.state.score < 100) {
-      console.log("not enough bitcoin");
+      updateFeed.push("you do not have enough Bitcoin");
+      this.setState({ feed: updateFeed });
     } else {
       let newScore = this.state.score - 100;
       let newNumOfClicks = this.state.numberOfClicks - 1;
 
-      this.setState({ score: newScore, numberOfClicks: newNumOfClicks });
+      updateFeed.push(
+        `You have overclocked your GPU, your number of clicks has been reduced to ${newNumOfClicks}`
+      );
+
+      this.setState({
+        score: newScore,
+        feed: updateFeed,
+        numberOfClicks: newNumOfClicks,
+      });
     }
   };
 
@@ -135,7 +163,7 @@ export class BitcoinClicker extends Component {
               className="bitcoin--logo"
               onClick={this.addScore}
             />
-            <Header as="h3">Bitcoin: {this.state.score}</Header>
+            <Header as="h3">Bitcoin: {this.state.score.toFixed(2)}</Header>
           </Container>
           <Container>
             <Header as="h3" content="Shop:" />
@@ -188,7 +216,7 @@ export class BitcoinClicker extends Component {
               <Feed.Event>
                 <Feed.Content>
                   <Feed.Summary>
-                    Multiplier: {activePerks.multiplier}x
+                    Multiplier: {activePerks.multiplier.toFixed(1)}x
                   </Feed.Summary>
                   <Feed.Summary>
                     Number of Graphic Cards: {activePerks.numGraphicCards}
@@ -205,7 +233,11 @@ export class BitcoinClicker extends Component {
             <Feed>
               <Feed.Event>
                 <Feed.Content>
-                  <Feed.Summary></Feed.Summary>
+                  <Feed.Summary>
+                    {this.state.feed.map((feeds, index) => (
+                      <Feed.Content key={index} content={feeds} />
+                    ))}
+                  </Feed.Summary>
                 </Feed.Content>
               </Feed.Event>
             </Feed>
