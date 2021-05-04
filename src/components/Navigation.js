@@ -31,6 +31,9 @@ export class menu extends Component {
               <Dropdown.Item as={Link} to="/pages/Todo">
                 Todo
               </Dropdown.Item>
+              <Dropdown.Item as={Link} to="/pages/BitcoinClicker">
+                Bitcoin Clicker
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Container>

@@ -13,6 +13,7 @@ import {
 import "../styles/Main.scss";
 import calculator from "../styles/assets/calculator.png";
 import todo from "../styles/assets/todo.png";
+import bitcoin from "../styles/assets/bitcoin_card.png";
 
 export class Home extends Component {
   render() {
@@ -70,6 +71,20 @@ export class Home extends Component {
                   <Card.Description>
                     A todo application that enables user to add, edit, and
                     delete a todo list.
+                  </Card.Description>
+                </Card.Content>
+              </Card>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column>
+            <Segment basic>
+              <Card>
+                <Image src={bitcoin} wrapped ui={false} />
+                <Card.Content>
+                  <Card.Header>Bitcoin Clicker</Card.Header>
+                  <Card.Description>
+                    A clicker game similar to Cookie clicker. Features a shop to
+                    increase the amount of coins to collect.
                   </Card.Description>
                 </Card.Content>
               </Card>

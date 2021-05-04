@@ -19,7 +19,7 @@ export class BitcoinClicker extends Component {
     super(props);
 
     this.state = {
-      score: 150,
+      score: 0,
       numberOfClicks: 20,
       feed: [],
       perks: [

@@ -25,6 +25,12 @@ export class Apps extends Component {
                 header="Todo"
                 description="A todo application that features adding, editing, and deleting a task."
               />
+              <Card
+                as={Link}
+                to="/pages/BitcoinClicker"
+                header="Bitcoin Clicker"
+                description="A clicker game similar to Cookie clicker. Features a shop to increase the amount of coins to collect."
+              />
             </Card.Group>
           </Segment>
         </Container>
